@@ -5,21 +5,33 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.supervoc.app",
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ],
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      },
-      "predictiveBackGestureEnabled": false
+        "backgroundColor": "#07061d",
+        "foregroundImage": "./assets/icon.png"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-asset",
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "bbd85e35-96f4-4225-94fd-fd2736da1170"
+      }
     }
   }
 }

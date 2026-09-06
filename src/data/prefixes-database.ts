@@ -1,0 +1,207 @@
+export interface PrefixItem {
+  id: string;
+  prefix: string;
+  meaningEn: string;
+  meaningVi: string;
+  origin: string;
+  category: 'negation' | 'direction' | 'time' | 'quantity' | 'intensity' | 'relation';
+  examples: Array<{ word: string; vi: string }>;
+}
+
+export const PREFIXES_DATABASE: Record<string, PrefixItem> = {
+  un: {
+    id: 'un',
+    prefix: 'un-',
+    meaningEn: 'not, opposite of, reverse',
+    meaningVi: 'không, ngược lại, đảo ngược hành động',
+    origin: 'Old English',
+    category: 'negation',
+    examples: [
+      { word: 'unlock', vi: 'mở khóa' },
+      { word: 'unhappy', vi: 'không vui vẻ, bất hạnh' },
+      { word: 'unpredictable', vi: 'không thể đoán trước' },
+      { word: 'uncover', vi: 'vạch trần, hé lộ' },
+    ],
+  },
+  re: {
+    id: 're',
+    prefix: 're-',
+    meaningEn: 'again, back',
+    meaningVi: 'lại, làm lại lần nữa, quay trở lại',
+    origin: 'Latin',
+    category: 'relation',
+    examples: [
+      { word: 'rebuild', vi: 'xây dựng lại' },
+      { word: 'review', vi: 'xem lại, ôn tập' },
+      { word: 'return', vi: 'trở về' },
+      { word: 'reconstruct', vi: 'tái thiết, phục dựng' },
+    ],
+  },
+  dis: {
+    id: 'dis',
+    prefix: 'dis-',
+    meaningEn: 'not, opposite of, apart, away',
+    meaningVi: 'không, trái ngược, tách rời, phân tán',
+    origin: 'Latin',
+    category: 'negation',
+    examples: [
+      { word: 'disagree', vi: 'không đồng ý, bất đồng' },
+      { word: 'disconnect', vi: 'ngắt kết nối' },
+      { word: 'disappear', vi: 'biến mất' },
+      { word: 'distract', vi: 'làm xao nhãng' },
+    ],
+  },
+  in_im_il_ir: {
+    id: 'in_im_il_ir',
+    prefix: 'in- / im- / il- / ir-',
+    meaningEn: 'not, without, in, into',
+    meaningVi: 'không, phi-, thiếu, vào bên trong',
+    origin: 'Latin',
+    category: 'negation',
+    examples: [
+      { word: 'impossible', vi: 'bất khả thi, không thể' },
+      { word: 'invisible', vi: 'vô hình, không nhìn thấy' },
+      { word: 'illegal', vi: 'bất hợp pháp' },
+      { word: 'irregular', vi: 'bất thường, không đều' },
+    ],
+  },
+  con_com_col_cor: {
+    id: 'con_com_col_cor',
+    prefix: 'con- / com- / col- / cor-',
+    meaningEn: 'with, together, completely',
+    meaningVi: 'cùng nhau, đồng-, hoàn toàn',
+    origin: 'Latin',
+    category: 'relation',
+    examples: [
+      { word: 'construct', vi: 'xây dựng cùng nhau' },
+      { word: 'combine', vi: 'kết hợp lại' },
+      { word: 'collaborate', vi: 'cộng tác' },
+      { word: 'correlate', vi: 'tương quan' },
+    ],
+  },
+  de: {
+    id: 'de',
+    prefix: 'de-',
+    meaningEn: 'down, away, remove, reverse',
+    meaningVi: 'xuống, tách ra, loại bỏ, làm giảm',
+    origin: 'Latin',
+    category: 'direction',
+    examples: [
+      { word: 'destruct', vi: 'phá hủy' },
+      { word: 'decrease', vi: 'giảm bớt' },
+      { word: 'deconstruct', vi: 'giải cấu trúc' },
+      { word: 'depart', vi: 'khởi hành rời đi' },
+    ],
+  },
+  ex_e: {
+    id: 'ex_e',
+    prefix: 'ex- / e-',
+    meaningEn: 'out of, away from, former',
+    meaningVi: 'ra ngoài, khỏi, cựu-',
+    origin: 'Latin / Greek',
+    category: 'direction',
+    examples: [
+      { word: 'export', vi: 'xuất khẩu ra nước ngoài' },
+      { word: 'extract', vi: 'chiết xuất ra' },
+      { word: 'expand', vi: 'mở rộng ra ngoài' },
+      { word: 'exclude', vi: 'loại trừ ra' },
+    ],
+  },
+  trans: {
+    id: 'trans',
+    prefix: 'trans-',
+    meaningEn: 'across, beyond, through, change',
+    meaningVi: 'xuyên qua, qua bên kia, chuyển biến',
+    origin: 'Latin',
+    category: 'direction',
+    examples: [
+      { word: 'transport', vi: 'vận chuyển xuyên qua' },
+      { word: 'translate', vi: 'dịch thuật, chuyển ngữ' },
+      { word: 'transform', vi: 'chuyển đổi hình dạng' },
+      { word: 'transfer', vi: 'chuyển giao' },
+    ],
+  },
+  sub: {
+    id: 'sub',
+    prefix: 'sub-',
+    meaningEn: 'under, below, beneath, secondary',
+    meaningVi: 'dưới, bên dưới, cấp dưới, phụ',
+    origin: 'Latin',
+    category: 'direction',
+    examples: [
+      { word: 'subway', vi: 'đường tàu điện ngầm' },
+      { word: 'subtract', vi: 'trừ bớt đi' },
+      { word: 'submerge', vi: 'nhấn chìm dưới nước' },
+      { word: 'subset', vi: 'tập hợp con' },
+    ],
+  },
+  pre: {
+    id: 'pre',
+    prefix: 'pre-',
+    meaningEn: 'before, in advance',
+    meaningVi: 'trước, chuẩn bị trước, tiền-',
+    origin: 'Latin',
+    category: 'time',
+    examples: [
+      { word: 'predict', vi: 'tiên đoán, nói trước' },
+      { word: 'prevent', vi: 'ngăn chặn trước' },
+      { word: 'prepare', vi: 'chuẩn bị trước' },
+      { word: 'preview', vi: 'xem trước' },
+    ],
+  },
+  post: {
+    id: 'post',
+    prefix: 'post-',
+    meaningEn: 'after, behind, later',
+    meaningVi: 'sau, hậu-, muộn hơn',
+    origin: 'Latin',
+    category: 'time',
+    examples: [
+      { word: 'postpone', vi: 'hoãn lại ngày sau' },
+      { word: 'postgraduate', vi: 'sau đại học (thạc sĩ/tiến sĩ)' },
+      { word: 'postwar', vi: 'thời kỳ hậu chiến' },
+    ],
+  },
+  pro: {
+    id: 'pro',
+    prefix: 'pro-',
+    meaningEn: 'forward, forth, in favor of',
+    meaningVi: 'tiến về phía trước, ủng hộ, chuyên nghiệp',
+    origin: 'Latin / Greek',
+    category: 'direction',
+    examples: [
+      { word: 'proceed', vi: 'tiến bước về trước' },
+      { word: 'progress', vi: 'sự tiến bộ' },
+      { word: 'produce', vi: 'sản xuất, tạo ra' },
+      { word: 'promote', vi: 'thúc đẩy, thăng chức' },
+    ],
+  },
+  inter: {
+    id: 'inter',
+    prefix: 'inter-',
+    meaningEn: 'between, among, mutually',
+    meaningVi: 'ở giữa, giữa các bên, liên-',
+    origin: 'Latin',
+    category: 'relation',
+    examples: [
+      { word: 'international', vi: 'quốc tế (giữa các quốc gia)' },
+      { word: 'intersect', vi: 'cắt nhau ở giữa, giao nhau' },
+      { word: 'interact', vi: 'tương tác qua lại' },
+      { word: 'interrupt', vi: 'ngắt lời xen vào giữa' },
+    ],
+  },
+  super_sur: {
+    id: 'super_sur',
+    prefix: 'super- / sur-',
+    meaningEn: 'above, over, beyond, extreme',
+    meaningVi: 'siêu, ở trên, vượt trội hơn hẳn',
+    origin: 'Latin',
+    category: 'intensity',
+    examples: [
+      { word: 'superb', vi: 'tuyệt đỉnh' },
+      { word: 'survive', vi: 'sống sót qua hiểm cảnh' },
+      { word: 'surface', vi: 'bề mặt phía trên' },
+      { word: 'supervise', vi: 'giám sát từ trên cao' },
+    ],
+  },
+};
