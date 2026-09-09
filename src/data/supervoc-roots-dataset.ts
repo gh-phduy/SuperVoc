@@ -10,6 +10,23 @@ export interface SupervocWordFamilyItem {
   exampleVi?: string;
 }
 
+export interface SupervocNuanceItem {
+  term: string;
+  partOfSpeech?: string;
+  phonetic?: string;
+  coreNuanceVi: string;      // Sắc thái cốt lõi & Hình ảnh bản chất
+  contextVi: string;         // Bối cảnh sử dụng đặc trưng
+  intensity?: 'Nhẹ' | 'Vừa' | 'Cực độ'; // Cường độ / Mức độ cảm xúc
+  exampleEn?: string;        // Ví dụ phân biệt điển hình
+  exampleVi?: string;
+}
+
+export interface SupervocNuanceTable {
+  topicVi: string;           // Tên chủ đề so sánh
+  summaryVi?: string;        // Lời đúc kết ngắn gọn cách phân biệt
+  items: SupervocNuanceItem[];
+}
+
 export interface SupervocRootRef {
   rootId: string;
   rootName: string;
@@ -53,6 +70,7 @@ export interface SupervocWord {
   examples: Array<{ en: string; vi: string }>;
   synonyms: SupervocWordFamilyItem[];
   antonyms: SupervocWordFamilyItem[];
+  nuanceTable?: SupervocNuanceTable; // Bảng so sánh sắc thái khi từ có nhiều từ đồng nghĩa
 }
 
 export interface SupervocRoot {

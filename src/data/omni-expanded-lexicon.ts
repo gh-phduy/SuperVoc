@@ -1,4 +1,10 @@
 import type { SupervocWord } from './supervoc-roots-dataset';
+import {
+  NUANCE_TABLE_ENGULF,
+  NUANCE_TABLE_RELENT,
+  NUANCE_TABLE_PERSEVERANCE,
+  NUANCE_TABLE_RURAL,
+} from './nuance-tables-dataset';
 
 export const OMNI_EXPANDED_LEXICON: Record<string, SupervocWord> = {
   // ===========================================================================
@@ -80,6 +86,7 @@ export const OMNI_EXPANDED_LEXICON: Record<string, SupervocWord> = {
       { term: 'metropolitan', vi: 'thuộc đô thị lớn' },
       { term: 'city', vi: 'thành phố' },
     ],
+    nuanceTable: NUANCE_TABLE_RURAL,
   },
 
   agrarianism: {
@@ -142,6 +149,7 @@ export const OMNI_EXPANDED_LEXICON: Record<string, SupervocWord> = {
       { term: 'industrialism', vi: 'chủ nghĩa kỹ nghệ / công nghiệp hóa' },
       { term: 'urbanism', vi: 'chủ nghĩa đô thị' },
     ],
+    nuanceTable: NUANCE_TABLE_RURAL,
   },
 
   rustic: {
@@ -210,6 +218,7 @@ export const OMNI_EXPANDED_LEXICON: Record<string, SupervocWord> = {
       { term: 'urban', vi: 'thành thị' },
       { term: 'modern', vi: 'hiện đại' },
     ],
+    nuanceTable: NUANCE_TABLE_RURAL,
   },
 
   pastoral: {
@@ -268,6 +277,7 @@ export const OMNI_EXPANDED_LEXICON: Record<string, SupervocWord> = {
       { term: 'industrial', vi: 'công nghiệp' },
       { term: 'urban', vi: 'thành thị xô bồ' },
     ],
+    nuanceTable: NUANCE_TABLE_RURAL,
   },
 
   urban: {
@@ -871,6 +881,7 @@ export const OMNI_EXPANDED_LEXICON: Record<string, SupervocWord> = {
         exampleVi: 'Cuối cùng anh ấy cũng được giải thoát khỏi nỗi lo lắng ngột ngạt.',
       },
     ],
+    nuanceTable: NUANCE_TABLE_ENGULF,
   },
 
   // ===========================================================================
@@ -1051,6 +1062,7 @@ export const OMNI_EXPANDED_LEXICON: Record<string, SupervocWord> = {
         exampleVi: 'Trái tim cô trở nên sắt đá trước những lời van nài của họ.',
       },
     ],
+    nuanceTable: NUANCE_TABLE_RELENT,
   },
 
   // ===========================================================================
@@ -1233,5 +1245,6 @@ export const OMNI_EXPANDED_LEXICON: Record<string, SupervocWord> = {
         exampleVi: 'Quân đội đã chọn sự bất khuất thay vì đầu hàng.',
       },
     ],
+    nuanceTable: NUANCE_TABLE_PERSEVERANCE,
   },
 };

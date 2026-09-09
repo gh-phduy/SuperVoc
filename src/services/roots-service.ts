@@ -94,6 +94,7 @@ export async function fetchAllRoots(forceRefresh = false): Promise<SupervocRoot[
               examples: w.examples || [],
               synonyms: w.synonyms || [],
               antonyms: w.antonyms || [],
+              nuanceTable: w.nuance_table || w.nuanceTable || undefined,
             } as SupervocWord;
           });
 

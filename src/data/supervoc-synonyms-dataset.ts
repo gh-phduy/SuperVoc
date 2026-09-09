@@ -1,4 +1,9 @@
 import type { SupervocWord } from './supervoc-roots-dataset';
+import {
+  NUANCE_TABLE_ENGULF,
+  NUANCE_TABLE_RELENT,
+  NUANCE_TABLE_PERSEVERANCE,
+} from './nuance-tables-dataset';
 
 export const SYNONYMS_ANTONYMS_LEXICON: Record<string, SupervocWord> = {
   // =========================================================================
@@ -569,6 +574,7 @@ export const SYNONYMS_ANTONYMS_LEXICON: Record<string, SupervocWord> = {
       { term: 'emerge', vi: 'nhô lên khỏi mặt nước', phonetic: '/ɪˈmɜːrdʒ/' },
       { term: 'surface', vi: 'nổi lên bề mặt', phonetic: '/ˈsɜːr.fɪs/' },
     ],
+    nuanceTable: NUANCE_TABLE_ENGULF,
   },
 
   inundate: {
@@ -612,6 +618,7 @@ export const SYNONYMS_ANTONYMS_LEXICON: Record<string, SupervocWord> = {
       { term: 'drain', vi: 'rút cạn nước', phonetic: '/dreɪn/' },
       { term: 'parch', vi: 'làm khô cằn, hạn hán', phonetic: '/pɑːrtʃ/' },
     ],
+    nuanceTable: NUANCE_TABLE_ENGULF,
   },
 
   emerge: {
@@ -788,6 +795,7 @@ export const SYNONYMS_ANTONYMS_LEXICON: Record<string, SupervocWord> = {
       { term: 'intensify', vi: 'gia tăng mãnh liệt', phonetic: '/ɪnˈten.sə.faɪ/' },
       { term: 'escalate', vi: 'leo thang căng thẳng', phonetic: '/ˈes.kə.leɪt/' },
     ],
+    nuanceTable: NUANCE_TABLE_RELENT,
   },
 
   yield: {
@@ -830,6 +838,7 @@ export const SYNONYMS_ANTONYMS_LEXICON: Record<string, SupervocWord> = {
       { term: 'resist', vi: 'kháng cự', phonetic: '/rɪˈzɪst/' },
       { term: 'withstand', vi: 'chống chọi, trụ vững', phonetic: '/wɪðˈstænd/' },
     ],
+    nuanceTable: NUANCE_TABLE_RELENT,
   },
 
   persist: {
@@ -875,6 +884,7 @@ export const SYNONYMS_ANTONYMS_LEXICON: Record<string, SupervocWord> = {
       { term: 'give up', vi: 'bỏ cuộc', phonetic: '/ɡɪv ʌp/' },
       { term: 'cease', vi: 'ngừng hẳn', phonetic: '/siːs/' },
     ],
+    nuanceTable: NUANCE_TABLE_PERSEVERANCE,
   },
 
   // =========================================================================
@@ -922,6 +932,7 @@ export const SYNONYMS_ANTONYMS_LEXICON: Record<string, SupervocWord> = {
       { term: 'irresolution', vi: 'sự do dự thiếu quyết đoán', phonetic: '/ɪˌrez.əˈluː.ʃən/' },
       { term: 'weakness', vi: 'sự yếu đuối, dễ bỏ cuộc', phonetic: '/ˈwiːk.nəs/' },
     ],
+    nuanceTable: NUANCE_TABLE_PERSEVERANCE,
   },
 
   grit: {
@@ -964,5 +975,6 @@ export const SYNONYMS_ANTONYMS_LEXICON: Record<string, SupervocWord> = {
       { term: 'cowardice', vi: 'sự hèn nhát', phonetic: '/ˈkaʊ.ɚ.dɪs/' },
       { term: 'fragility', vi: 'sự mong manh dễ vỡ', phonetic: '/frəˈdʒɪl.ə.t̬i/' },
     ],
+    nuanceTable: NUANCE_TABLE_PERSEVERANCE,
   },
 };

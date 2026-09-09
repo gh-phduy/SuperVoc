@@ -5,6 +5,7 @@ import { SupervocWord, SupervocRoot } from '../data/supervoc-roots-dataset';
 import { WordAnatomyCard } from '../components/WordAnatomyCard';
 import { WordFamilyMatrix } from '../components/WordFamilyMatrix';
 import { SynonymsAntonymsCard } from '../components/SynonymsAntonymsCard';
+import { NuanceComparisonTable } from '../components/NuanceComparisonTable';
 import { speakWord } from '../services/speech';
 import {
   ArrowLeft,
@@ -220,6 +221,15 @@ export const WordDetailScreen: React.FC<WordDetailScreenProps> = React.memo(({
           antonyms={word.antonyms}
           onSelectWord={onSelectRelatedWord}
         />
+
+        {/* Nuance Comparison Matrix (Bảng so sánh sắc thái từ vựng) */}
+        {word.nuanceTable && (
+          <NuanceComparisonTable
+            nuanceTable={word.nuanceTable}
+            currentTerm={word.term}
+            onSelectWord={onSelectRelatedWord}
+          />
+        )}
 
         {/* Collocations & Phrases */}
         {word.collocations && word.collocations.length > 0 && (
