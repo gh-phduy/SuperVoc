@@ -1,4 +1,7 @@
 import type { SupervocWord } from './supervoc-roots-dataset';
+import { OXFORD_B2_EDUCATION_ACADEMICS_WORDS } from './oxford-education-academics-dataset';
+
+export { OXFORD_B2_EDUCATION_ACADEMICS_WORDS };
 
 export interface OxfordWordSet {
   id: string;
@@ -2443,6 +2446,17 @@ export const OXFORD_B2_HEALTH_MIND_WORDS: SupervocWord[] = [
 
 // Danh mục tất cả các bộ từ Oxford 5000 hiển thị ở trang Hub (như Hình 1)
 export const OXFORD_5000_SETS: OxfordWordSet[] = [
+  {
+    id: 'oxford_b2_education_academics',
+    title: 'Oxford B2 Extended - Education, Academics, Science & Research',
+    level: 'B2',
+    termsCount: 40,
+    description: 'Academic study, scientific research, learning methodology, and analysis.',
+    category: 'Education & Science',
+    author: 'Demo User',
+    daysAgo: '22 days ago',
+    words: OXFORD_B2_EDUCATION_ACADEMICS_WORDS,
+  },
   {
     id: 'oxford_b2_health_mind',
     title: 'Oxford B2 Extended - Health, Medicine, Mind & Psychology',

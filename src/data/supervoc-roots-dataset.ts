@@ -1,5 +1,5 @@
 import { OMNI_EXPANDED_LEXICON } from './omni-expanded-lexicon';
-import { OXFORD_B2_HEALTH_MIND_WORDS } from './oxford-sets-dataset';
+import { OXFORD_B2_HEALTH_MIND_WORDS, OXFORD_B2_EDUCATION_ACADEMICS_WORDS } from './oxford-sets-dataset';
 import { SYNONYMS_ANTONYMS_LEXICON } from './supervoc-synonyms-dataset';
 
 export interface SupervocWordFamilyItem {
@@ -8086,6 +8086,13 @@ function buildGlobalLexiconIndex(roots?: SupervocRoot[]) {
 
   // 3. Oxford B2 words
   for (const word of OXFORD_B2_HEALTH_MIND_WORDS) {
+    if (word && !map.has(word.id)) {
+      map.set(word.id, word);
+      termMap.set(word.term.toLowerCase(), word);
+      termMap.set(word.id.toLowerCase(), word);
+    }
+  }
+  for (const word of OXFORD_B2_EDUCATION_ACADEMICS_WORDS) {
     if (word && !map.has(word.id)) {
       map.set(word.id, word);
       termMap.set(word.term.toLowerCase(), word);

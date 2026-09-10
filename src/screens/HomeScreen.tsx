@@ -303,7 +303,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           onToggleRoot={handleToggleRoot}
           onSelectRoot={onSelectRoot}
           onSelectWord={onSelectWord}
-          onSelectRootById={onSelectRootById}
         />
       </ScrollView>
     </View>

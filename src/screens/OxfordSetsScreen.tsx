@@ -20,6 +20,10 @@ import {
   ArrowLeft,
   X,
   Sparkles,
+  Clock,
+  Copy,
+  ArrowRight,
+  User,
 } from 'lucide-react-native';
 import {
   OXFORD_5000_SETS,
@@ -165,9 +169,12 @@ const OxfordCatalogCard = React.memo<{
       <View style={styles.setCardFooter}>
         <View style={styles.setCardAuthor}>
           <View style={styles.smallAvatar}>
-            <Text style={styles.smallAvatarText}>O</Text>
+            <Text style={styles.smallAvatarText}>
+              {(set.author || 'SuperVoc')[0].toUpperCase()}
+            </Text>
           </View>
-          <Text style={styles.smallAuthorName}>SuperVoc / Oxford 5000</Text>
+          <Text style={styles.smallAuthorName}>{set.author || 'SuperVoc / Oxford 5000'}</Text>
+          {set.daysAgo && <Text style={styles.smallDaysAgoText}>• {set.daysAgo}</Text>}
         </View>
 
         <View style={styles.setCardActions}>
@@ -317,7 +324,7 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
           <View style={styles.topBarBadgesRow}>
             <View style={styles.topBarTagBadge}>
               <BookOpen size={11} color="#60a5fa" />
-              <Text style={styles.topBarTagText}>VOCABULARY</Text>
+              <Text style={styles.topBarTagText}>VOCABULARY TERMS</Text>
             </View>
 
             <View style={styles.topBarLevelBadge}>
@@ -330,16 +337,27 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
             </View>
           </View>
 
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={() => {
-              setActiveSetId(null);
-              setDetailSearch('');
-              setPosFilter('All');
-            }}
-          >
-            <X size={18} color="#94a3b8" />
-          </TouchableOpacity>
+          <View style={styles.topBarRightActions}>
+            <TouchableOpacity
+              style={styles.topBarCopyBtn}
+              onPress={() => {}}
+              activeOpacity={0.7}
+            >
+              <Copy size={12} color="#cbd5e1" />
+              <Text style={styles.topBarCopyText}>Copy</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => {
+                setActiveSetId(null);
+                setDetailSearch('');
+                setPosFilter('All');
+              }}
+            >
+              <X size={18} color="#94a3b8" />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <ScrollView
@@ -355,9 +373,15 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
             <View style={styles.setHeroFooter}>
               <View style={styles.authorRow}>
                 <View style={styles.avatarCircle}>
-                  <Text style={styles.avatarLetter}>O</Text>
+                  <User size={10} color="#ffffff" />
                 </View>
-                <Text style={styles.authorName}>SuperVoc / Oxford 5000</Text>
+                <Text style={styles.authorName}>{currentSet.author || 'SuperVoc / Oxford 5000'}</Text>
+                {currentSet.daysAgo && (
+                  <View style={styles.daysAgoRow}>
+                    <Clock size={11} color="#64748b" />
+                    <Text style={styles.daysAgoText}>{currentSet.daysAgo}</Text>
+                  </View>
+                )}
               </View>
 
               {onOpenFlashcardQuiz && currentSet.words.length > 0 && (
@@ -366,8 +390,8 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
                   onPress={() => onOpenFlashcardQuiz(currentSet.words, currentSet.title)}
                   activeOpacity={0.8}
                 >
-                  <Play size={13} color="#ffffff" fill="#ffffff" />
-                  <Text style={styles.startPracticeText}>Start Practice</Text>
+                  <Play size={12} color="#ffffff" fill="#ffffff" />
+                  <Text style={styles.startPracticeText}>Start Practice ▾</Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -379,7 +403,7 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
               <Search size={15} color="#64748b" style={styles.searchIcon} />
               <TextInput
                 style={styles.searchInput}
-                placeholder="Search term, definition, part of speech..."
+                placeholder="Search by term, definition, or part of speech..."
                 placeholderTextColor="#64748b"
                 value={detailSearch}
                 onChangeText={setDetailSearch}
@@ -398,6 +422,14 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
                 style={[styles.accentBtn, voiceAccent === 'us' && styles.accentBtnActive]}
                 onPress={() => setVoiceAccent('us')}
               >
+                <Text
+                  style={[
+                    styles.accentSmallLabel,
+                    voiceAccent === 'us' && styles.accentSmallLabelActive,
+                  ]}
+                >
+                  us
+                </Text>
                 <Text style={[styles.accentText, voiceAccent === 'us' && styles.accentTextActive]}>
                   US
                 </Text>
@@ -406,11 +438,24 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
                 style={[styles.accentBtn, voiceAccent === 'uk' && styles.accentBtnActive]}
                 onPress={() => setVoiceAccent('uk')}
               >
+                <Text
+                  style={[
+                    styles.accentSmallLabel,
+                    voiceAccent === 'uk' && styles.accentSmallLabelActive,
+                  ]}
+                >
+                  GB
+                </Text>
                 <Text style={[styles.accentText, voiceAccent === 'uk' && styles.accentTextActive]}>
                   UK
                 </Text>
               </TouchableOpacity>
             </View>
+
+            <Text style={styles.showingCountText}>
+              Showing <Text style={{ fontWeight: '800', color: '#f1f5f9' }}>{filteredWords.length}</Text> of{' '}
+              <Text style={{ fontWeight: '800', color: '#f1f5f9' }}>{currentSet.words.length}</Text> terms
+            </Text>
           </View>
 
           {/* Showing Count and POS Filter Chips */}
@@ -420,7 +465,7 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.posFilterRow}
             >
-              <Text style={styles.filterLabel}>POS:</Text>
+              <Text style={styles.filterLabel}>PART OF SPEECH:</Text>
 
               <TouchableOpacity
                 style={[styles.posFilterChip, posFilter === 'All' && styles.posFilterChipActive]}
@@ -484,10 +529,6 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
                 </TouchableOpacity>
               )}
             </ScrollView>
-
-            <Text style={styles.showingCountText}>
-              Showing {filteredWords.length} of {currentSet.words.length} terms
-            </Text>
           </View>
 
           {/* Word List Cards (Responsive 2-Row Structured Layout) */}
@@ -512,13 +553,41 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
           </View>
         </ScrollView>
 
-        {/* Tip Banner */}
+        {/* Tip & Flashcards Action Footer Bar (Matching Screenshot) */}
         <View style={styles.detailFooterBar}>
-          <Text style={styles.tipText}>
-            <Text style={{ fontWeight: '800', color: '#fcd34d' }}>💡 Tip:</Text> Nhấn vào từ bất kỳ để xem{' '}
-            <Text style={{ fontWeight: '800', color: '#ffffff' }}>Họ từ (Word Family)</Text>,{' '}
-            <Text style={{ fontWeight: '800', color: '#ffffff' }}>Từ trái nghĩa</Text> & Collocations chi tiết.
-          </Text>
+          <View style={styles.tipTextContainer}>
+            <Text style={styles.tipText} numberOfLines={2}>
+              <Text style={{ fontWeight: '800', color: '#fcd34d' }}>💡 Tip: </Text>
+              Nhấn vào từ bất kỳ để xem{' '}
+              <Text style={{ fontWeight: '700', color: '#ffffff' }}>Họ từ (Noun/Verb/Adj/Adv)</Text>,{' '}
+              <Text style={{ fontWeight: '700', color: '#f87171' }}>Từ trái nghĩa</Text> & định nghĩa chi tiết.
+            </Text>
+          </View>
+
+          <View style={styles.detailFooterButtons}>
+            <TouchableOpacity
+              style={styles.closeFooterBtn}
+              onPress={() => {
+                setActiveSetId(null);
+                setDetailSearch('');
+                setPosFilter('All');
+              }}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.closeFooterBtnText}>Close</Text>
+            </TouchableOpacity>
+
+            {onOpenFlashcardQuiz && currentSet.words.length > 0 && (
+              <TouchableOpacity
+                style={styles.studyFlashcardsBtn}
+                onPress={() => onOpenFlashcardQuiz(currentSet.words, currentSet.title)}
+                activeOpacity={0.85}
+              >
+                <Text style={styles.studyFlashcardsBtnText}>Study Flashcards</Text>
+                <ArrowRight size={13} color="#ffffff" />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     );
@@ -1153,16 +1222,105 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   detailFooterBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: 'rgba(12, 13, 40, 0.98)',
     borderTopWidth: 1,
     borderTopColor: 'rgba(255, 255, 255, 0.08)',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  tipTextContainer: {
+    flex: 1,
+    marginRight: 10,
   },
   tipText: {
     color: '#94a3b8',
     fontSize: 10,
     lineHeight: 14,
-    textAlign: 'center',
+  },
+  detailFooterButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  closeFooterBtn: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.12)',
+  },
+  closeFooterBtnText: {
+    color: '#cbd5e1',
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  studyFlashcardsBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    backgroundColor: '#4255ff',
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    borderRadius: 8,
+    shadowColor: '#4255ff',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  studyFlashcardsBtnText: {
+    color: '#ffffff',
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  topBarRightActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  topBarCopyBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  topBarCopyText: {
+    color: '#cbd5e1',
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  daysAgoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginLeft: 6,
+  },
+  daysAgoText: {
+    color: '#64748b',
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  smallDaysAgoText: {
+    color: '#64748b',
+    fontSize: 10,
+    fontWeight: '500',
+  },
+  accentSmallLabel: {
+    color: '#64748b',
+    fontSize: 8,
+    fontWeight: '800',
+    marginRight: 2,
+  },
+  accentSmallLabelActive: {
+    color: '#bfdbfe',
   },
 });

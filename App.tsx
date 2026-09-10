@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   tabScreenWrapper: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
   },
   visibleTab: {
     display: 'flex',
@@ -394,7 +394,7 @@ const styles = StyleSheet.create({
     display: 'none',
   },
   detailScreenWrapper: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     zIndex: 10,
     backgroundColor: '#07061d',
   },
