@@ -24,10 +24,7 @@ export const RootDetailScreen: React.FC<RootDetailScreenProps> = React.memo(({
   onSelectWord,
 }) => {
   const insets = useSafeAreaInsets();
-  const safeTopPadding = Math.max(
-    insets.top,
-    Platform.OS === 'android' ? (StatusBar.currentHeight || 28) : 44
-  ) + 6;
+  const safeTopPadding = insets.top > 0 ? insets.top + 4 : 10;
 
   if (!root) {
     return (

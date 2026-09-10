@@ -8,6 +8,7 @@ import {
   TextInput,
   ActivityIndicator,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../config/supabase';
 import { speakWord } from '../services/speech';
 import {
@@ -44,6 +45,8 @@ export const SupabaseExplorerScreen: React.FC<SupabaseExplorerScreenProps> = ({
   onBack,
   onSelectCard,
 }) => {
+  const insets = useSafeAreaInsets();
+  const safeTopPadding = insets.top > 0 ? insets.top + 4 : 10;
   const [searchQuery, setSearchQuery] = useState('');
   const [cards, setCards] = useState<SupabaseCard[]>([]);
   const [loading, setLoading] = useState(false);
@@ -101,7 +104,7 @@ export const SupabaseExplorerScreen: React.FC<SupabaseExplorerScreenProps> = ({
   return (
     <View style={styles.container}>
       {/* Top Bar */}
-      <View style={styles.topBar}>
+      <View style={[styles.topBar, { paddingTop: safeTopPadding }]}>
         <TouchableOpacity style={styles.backButton} onPress={onBack}>
           <ArrowLeft size={20} color="#ffffff" />
         </TouchableOpacity>
@@ -241,8 +244,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 50,
-    paddingBottom: 16,
+    paddingBottom: 14,
     backgroundColor: 'rgba(12, 13, 40, 0.95)',
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255, 255, 255, 0.08)',

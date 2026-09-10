@@ -201,10 +201,7 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
   onSelectSetId,
 }) => {
   const insets = useSafeAreaInsets();
-  const safeTopPadding = Math.max(
-    insets.top,
-    Platform.OS === 'android' ? (StatusBar.currentHeight || 28) : 44
-  ) + 6;
+  const safeTopPadding = insets.top > 0 ? insets.top + 4 : 10;
 
   const [internalSelectedSetId, setInternalSelectedSetId] = useState<string | null>(null);
   const activeSetId = selectedSetId !== undefined ? selectedSetId : internalSelectedSetId;

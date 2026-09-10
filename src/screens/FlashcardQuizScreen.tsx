@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ROOTS_DATABASE, RootItem, DerivedWord } from '../data/roots-database';
 import { speakWord } from '../services/speech';
 import {
@@ -20,6 +21,9 @@ interface FlashcardQuizScreenProps {
 }
 
 export const FlashcardQuizScreen: React.FC<FlashcardQuizScreenProps> = ({ onBack }) => {
+  const insets = useSafeAreaInsets();
+  const safeTopPadding = insets.top > 0 ? insets.top + 4 : 10;
+
   // Flatten all words across roots for flashcard study
   const allRoots = Object.values(ROOTS_DATABASE);
   const allQuizWords: Array<{ word: DerivedWord; root: RootItem }> = [];
@@ -74,7 +78,7 @@ export const FlashcardQuizScreen: React.FC<FlashcardQuizScreenProps> = ({ onBack
   if (isFinished) {
     return (
       <View style={styles.container}>
-        <View style={styles.topBar}>
+        <View style={[styles.topBar, { paddingTop: safeTopPadding }]}>
           <TouchableOpacity style={styles.backButton} onPress={onBack}>
             <ArrowLeft size={20} color="#ffffff" />
           </TouchableOpacity>
@@ -115,7 +119,7 @@ export const FlashcardQuizScreen: React.FC<FlashcardQuizScreenProps> = ({ onBack
   return (
     <View style={styles.container}>
       {/* Top Bar */}
-      <View style={styles.topBar}>
+      <View style={[styles.topBar, { paddingTop: safeTopPadding }]}>
         <TouchableOpacity style={styles.backButton} onPress={onBack}>
           <ArrowLeft size={20} color="#ffffff" />
         </TouchableOpacity>
@@ -224,8 +228,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 50,
-    paddingBottom: 16,
+    paddingBottom: 14,
     backgroundColor: 'rgba(12, 13, 40, 0.95)',
   },
   backButton: {

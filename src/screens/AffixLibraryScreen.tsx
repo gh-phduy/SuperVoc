@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PREFIXES_DATABASE, PrefixItem } from '../data/prefixes-database';
 import { SUFFIXES_DATABASE, SuffixItem } from '../data/suffixes-database';
 import { ArrowLeft, Search, Layers, Sparkles, Tag, ChevronRight } from 'lucide-react-native';
@@ -13,6 +14,8 @@ export const AffixLibraryScreen: React.FC<AffixLibraryScreenProps> = ({
   onBack,
   onSelectAffixExample,
 }) => {
+  const insets = useSafeAreaInsets();
+  const safeTopPadding = insets.top > 0 ? insets.top + 4 : 10;
   const [activeTab, setActiveTab] = useState<'prefixes' | 'suffixes'>('prefixes');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -44,7 +47,7 @@ export const AffixLibraryScreen: React.FC<AffixLibraryScreenProps> = ({
   return (
     <View style={styles.container}>
       {/* Top Bar */}
-      <View style={styles.topBar}>
+      <View style={[styles.topBar, { paddingTop: safeTopPadding }]}>
         <TouchableOpacity style={styles.backButton} onPress={onBack}>
           <ArrowLeft size={20} color="#ffffff" />
         </TouchableOpacity>
@@ -167,8 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 50,
-    paddingBottom: 16,
+    paddingBottom: 14,
     backgroundColor: 'rgba(12, 13, 40, 0.95)',
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255, 255, 255, 0.08)',

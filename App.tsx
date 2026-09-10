@@ -278,7 +278,7 @@ export default function App() {
     <SafeAreaProvider>
       <ErrorBoundary>
         <View style={styles.rootContainer}>
-          <StatusBar barStyle="light-content" backgroundColor="#07061d" />
+          <StatusBar barStyle="light-content" backgroundColor="#0c0d28" />
 
           {/* Global Parent Ecosystem Header */}
           {showBrandHeader && (

@@ -14,10 +14,7 @@ export const ParentBrandHeader: React.FC<ParentBrandHeaderProps> = React.memo(({
   totalWordsCount = 133,
 }) => {
   const insets = useSafeAreaInsets();
-  const safeTopPadding = Math.max(
-    insets.top,
-    Platform.OS === 'android' ? (StatusBar.currentHeight || 28) : 44
-  ) + 8;
+  const safeTopPadding = insets.top > 0 ? insets.top + 4 : 10;
 
   return (
     <View style={[styles.headerContainer, { paddingTop: safeTopPadding }]}>
