@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TextInput,
   Platform,
   StatusBar,
+  RefreshControl,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
@@ -25,6 +26,7 @@ import {
   OXFORD_5000_SETS,
   OxfordWordSet,
 } from '../data/oxford-sets-dataset';
+import { fetchAllSets, getCachedSetsSync } from '../services/sets-service';
 import { SupervocWord } from '../data/supervoc-roots-dataset';
 import { speakWord, VoiceAccent } from '../services/speech';
 
@@ -207,6 +209,36 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
   const activeSetId = selectedSetId !== undefined ? selectedSetId : internalSelectedSetId;
   const setActiveSetId = onSelectSetId || setInternalSelectedSetId;
 
+  // Sets state with remote Supabase loading and instant fallback
+  const [sets, setSets] = useState<OxfordWordSet[]>(() => getCachedSetsSync());
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchAllSets().then((remoteSets) => {
+      if (isMounted && remoteSets && remoteSets.length > 0) {
+        setSets(remoteSets);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      const refreshed = await fetchAllSets(true);
+      if (refreshed && refreshed.length > 0) {
+        setSets(refreshed);
+      }
+    } catch (e) {
+      console.warn('Lỗi làm mới danh sách bộ từ:', e);
+    } finally {
+      setRefreshing(false);
+    }
+  }, []);
+
   // Catalog Filters
   const [catalogSearch, setCatalogSearch] = useState('');
   const [bookmarkedSetIds, setBookmarkedSetIds] = useState<Set<string>>(new Set());
@@ -220,12 +252,12 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
   // Active Set object
   const currentSet = useMemo(() => {
     if (!activeSetId) return null;
-    return OXFORD_5000_SETS.find((s) => s.id === activeSetId) || null;
-  }, [activeSetId]);
+    return sets.find((s) => s.id === activeSetId) || null;
+  }, [activeSetId, sets]);
 
   // Filtered Catalog Sets
   const filteredSets = useMemo(() => {
-    return OXFORD_5000_SETS.filter((set) => {
+    return sets.filter((set) => {
       const q = catalogSearch.toLowerCase().trim();
       return (
         !q ||
@@ -234,7 +266,7 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
         set.category.toLowerCase().includes(q)
       );
     });
-  }, [catalogSearch]);
+  }, [sets, catalogSearch]);
 
   // Filtered Words in Active Set
   const filteredWords = useMemo(() => {
@@ -550,6 +582,14 @@ export const OxfordSetsScreen: React.FC<OxfordSetsScreenProps> = ({
         style={styles.content}
         contentContainerStyle={styles.catalogScrollContent}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor="#38bdf8"
+            colors={['#38bdf8']}
+          />
+        }
       >
         <View style={styles.setsGrid}>
           {filteredSets.map((set) => (
